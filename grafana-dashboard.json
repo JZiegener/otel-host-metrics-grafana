@@ -23,7 +23,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 30,
-  "iteration": 1639925430970,
+  "iteration": 1640313000351,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -43,7 +43,7 @@
           "fieldConfig": {
             "defaults": {
               "color": {
-                "mode": "thresholds"
+                "mode": "palette-classic"
               },
               "mappings": [],
               "thresholds": {
@@ -58,7 +58,8 @@
                     "value": 80
                   }
                 ]
-              }
+              },
+              "unit": "dtdurations"
             },
             "overrides": []
           },
@@ -66,9 +67,9 @@
             "h": 3,
             "w": 2,
             "x": 3,
-            "y": 25
+            "y": 17
           },
-          "id": 4,
+          "id": 42,
           "options": {
             "colorMode": "value",
             "graphMode": "area",
@@ -88,13 +89,13 @@
           "targets": [
             {
               "exemplar": true,
-              "expr": "up{instance=\"$host\"}",
+              "expr": "time() - max_over_time(timestamp(changes(up{job=\"otel-windows\"}[5m]) > 0)[24h:1m])",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
             }
           ],
-          "title": "Up",
+          "title": "up time",
           "type": "stat"
         },
         {
@@ -133,7 +134,7 @@
             "h": 6,
             "w": 3,
             "x": 5,
-            "y": 25
+            "y": 17
           },
           "id": 25,
           "options": {
@@ -170,7 +171,7 @@
                 "mode": "thresholds"
               },
               "mappings": [],
-              "max": 34311438336,
+              "max": 69363998720,
               "min": 0,
               "thresholds": {
                 "mode": "percentage",
@@ -197,7 +198,7 @@
             "h": 6,
             "w": 3,
             "x": 8,
-            "y": 25
+            "y": 17
           },
           "id": 8,
           "options": {
@@ -264,7 +265,7 @@
             "h": 6,
             "w": 4,
             "x": 11,
-            "y": 25
+            "y": 17
           },
           "id": 29,
           "options": {
@@ -324,7 +325,7 @@
             "h": 6,
             "w": 4,
             "x": 15,
-            "y": 25
+            "y": 17
           },
           "id": 30,
           "options": {
@@ -383,7 +384,7 @@
             "h": 3,
             "w": 2,
             "x": 3,
-            "y": 28
+            "y": 20
           },
           "id": 10,
           "options": {
@@ -494,7 +495,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 32
+            "y": 18
           },
           "id": 13,
           "libraryPanel": {
@@ -638,10 +639,11 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 32
+            "y": 18
           },
           "id": 6,
           "libraryPanel": {
+            "description": "",
             "meta": {
               "connectedDashboards": 1,
               "created": "2021-12-12T20:16:17Z",
@@ -650,9 +652,9 @@
                 "id": 1,
                 "name": "admin"
               },
-              "folderName": "",
+              "folderName": "General",
               "folderUid": "",
-              "updated": "2021-12-19T15:46:29.851134438Z",
+              "updated": "2021-12-19T15:46:29Z",
               "updatedBy": {
                 "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
                 "id": 1,
@@ -660,6 +662,7 @@
               }
             },
             "name": "Window-Otel-System Memory",
+            "type": "timeseries",
             "uid": "gJS9rlh7z",
             "version": 4
           },
@@ -782,7 +785,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 40
+            "y": 26
           },
           "id": 19,
           "options": {
@@ -872,7 +875,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 40
+            "y": 26
           },
           "id": 17,
           "options": {
@@ -969,7 +972,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 48
+            "y": 34
           },
           "id": 15,
           "options": {
@@ -1094,7 +1097,7 @@
         "x": 0,
         "y": 3
       },
-      "id": 36,
+      "id": 48,
       "options": {
         "legend": {
           "calcs": [],
@@ -1108,13 +1111,102 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "system_disk_pending_operations{instance=\"$host\"}",
+          "expr": "rate(system_disk_weighted_io_time{instance=\"$host\"}[$__rate_interval])",
           "interval": "",
-          "legendFormat": "{{device}}",
+          "legendFormat": "",
           "refId": "A"
         }
       ],
-      "title": "Disk Queue Length",
+      "title": "weighted IO time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 3
+      },
+      "id": 40,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(system_disk_operations{instance=\"$host\",direction=\"read\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "{{device}} read",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "-rate(system_disk_operations{instance=\"$host\",direction=\"write\"}[$__rate_interval])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{device}} write",
+          "refId": "B"
+        }
+      ],
+      "title": "Disk Operations",
       "type": "timeseries"
     },
     {
@@ -1175,7 +1267,7 @@
         "x": 0,
         "y": 11
       },
-      "id": 40,
+      "id": 44,
       "options": {
         "legend": {
           "calcs": [],
@@ -1189,21 +1281,199 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(system_disk_operations{instance=\"$host\",direction=\"read\"}[$__rate_interval])",
+          "expr": "rate(system_disk_merged{instance=\"$host\",direction=\"read\"}[$__rate_interval])",
           "interval": "",
-          "legendFormat": "{{device}} read",
+          "legendFormat": "",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "-rate(system_disk_operations{instance=\"$host\",direction=\"write\"}[$__rate_interval])",
+          "expr": "-rate(system_disk_merged{instance=\"$host\",direction=\"write\"}[$__rate_interval])",
           "hide": false,
           "interval": "",
-          "legendFormat": "{{device}} write",
+          "legendFormat": "",
           "refId": "B"
         }
       ],
-      "title": "Disk Operations",
+      "title": "disk merged",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 25,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 11
+      },
+      "id": 32,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "system_filesystem_inodes_usage{instance=\"$host\",state=\"used\"}",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "system_filesystem_inodes_usage{instance=\"$host\",state=\"free\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "B"
+        }
+      ],
+      "title": "filesystem inodes",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 19
+      },
+      "id": 46,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(system_disk_operation_time{instance=\"$host\",direction=\"read\"}[$__rate_interval])",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "-rate(system_disk_operation_time{instance=\"$host\",direction=\"read\"}[$__rate_interval])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "B"
+        }
+      ],
+      "title": "disk operation time",
       "type": "timeseries"
     },
     {
@@ -1262,7 +1532,7 @@
       "gridPos": {
         "h": 8,
         "w": 12,
-        "x": 0,
+        "x": 12,
         "y": 19
       },
       "id": 34,
@@ -1316,7 +1586,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 25,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -1333,7 +1603,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "normal"
+              "mode": "none"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -1362,7 +1632,7 @@
         "x": 0,
         "y": 27
       },
-      "id": 32,
+      "id": 36,
       "options": {
         "legend": {
           "calcs": [],
@@ -1376,21 +1646,13 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "system_filesystem_inodes_usage{instance=\"$host\",state=\"used\"}",
+          "expr": "system_disk_pending_operations{instance=\"$host\"}",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{device}}",
           "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "system_filesystem_inodes_usage{instance=\"$host\",state=\"free\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "B"
         }
       ],
-      "title": "filesystem inodes",
+      "title": "Disk Queue Length",
       "type": "timeseries"
     }
   ],
@@ -1404,8 +1666,8 @@
         "allValue": null,
         "current": {
           "selected": true,
-          "text": "192.168.2.212:9101",
-          "value": "192.168.2.212:9101"
+          "text": "192.168.2.41:9101",
+          "value": "192.168.2.41:9101"
         },
         "datasource": "Prometheus",
         "definition": "label_values(up{job=\"otel-windows\"},instance)",
@@ -1430,12 +1692,12 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "otel-host_metrics",
   "uid": "tRDQ382nk",
-  "version": 27
+  "version": 33
 }
