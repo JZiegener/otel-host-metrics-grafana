@@ -23,7 +23,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 30,
-  "iteration": 1640645759562,
+  "iteration": 1640906322144,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -69,7 +69,7 @@
       "gridPos": {
         "h": 3,
         "w": 2,
-        "x": 3,
+        "x": 0,
         "y": 1
       },
       "id": 42,
@@ -136,7 +136,7 @@
       "gridPos": {
         "h": 6,
         "w": 3,
-        "x": 5,
+        "x": 2,
         "y": 1
       },
       "id": 25,
@@ -200,7 +200,7 @@
       "gridPos": {
         "h": 6,
         "w": 3,
-        "x": 8,
+        "x": 5,
         "y": 1
       },
       "id": 8,
@@ -247,6 +247,97 @@
             "mode": "thresholds"
           },
           "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "semi-dark-orange",
+                "value": 80
+              },
+              {
+                "color": "semi-dark-red",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 8,
+        "y": 1
+      },
+      "id": 51,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
+      },
+      "pluginVersion": "8.2.5",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum(system_filesystem_usage{instance=\"$host\",state=\"used\"}) by (mountpoint) / sum(system_filesystem_usage{instance=\"$host\"}) by (mountpoint)",
+          "interval": "",
+          "legendFormat": "{{mountpoint}}",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "B"
+        }
+      ],
+      "title": "File System Use",
+      "transformations": [
+        {
+          "disabled": true,
+          "id": "configFromData",
+          "options": {
+            "applyTo": {
+              "id": "byType",
+              "options": "time"
+            },
+            "configRefId": "B",
+            "mappings": [
+              {
+                "fieldName": "{mountpoint=\"/\"}",
+                "handlerKey": "max"
+              }
+            ]
+          }
+        }
+      ],
+      "type": "gauge"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -267,7 +358,7 @@
       "gridPos": {
         "h": 6,
         "w": 4,
-        "x": 11,
+        "x": 16,
         "y": 1
       },
       "id": 29,
@@ -327,7 +418,7 @@
       "gridPos": {
         "h": 6,
         "w": 4,
-        "x": 15,
+        "x": 20,
         "y": 1
       },
       "id": 30,
@@ -386,7 +477,7 @@
       "gridPos": {
         "h": 3,
         "w": 2,
-        "x": 3,
+        "x": 0,
         "y": 4
       },
       "id": 10,
@@ -645,6 +736,7 @@
       },
       "id": 6,
       "libraryPanel": {
+        "description": "",
         "meta": {
           "connectedDashboards": 1,
           "created": "2021-12-12T20:16:17Z",
@@ -653,9 +745,9 @@
             "id": 1,
             "name": "admin"
           },
-          "folderName": "",
+          "folderName": "General",
           "folderUid": "",
-          "updated": "2021-12-27T23:25:07.016790218Z",
+          "updated": "2021-12-27T23:25:07Z",
           "updatedBy": {
             "avatarUrl": "/avatar/46d229b033af06a191ff2267bca9ae56",
             "id": 1,
@@ -663,6 +755,7 @@
           }
         },
         "name": "Window-Otel-System Memory",
+        "type": "timeseries",
         "uid": "gJS9rlh7z",
         "version": 6
       },
@@ -815,7 +908,7 @@
           "refId": "B"
         }
       ],
-      "title": "disk activity",
+      "title": "Disk Activity",
       "type": "timeseries"
     },
     {
@@ -917,118 +1010,13 @@
       "type": "timeseries"
     },
     {
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 24
-      },
-      "id": 15,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "system_network_connections{instance=\"$host\",state=\"LISTEN\"}",
-          "interval": "",
-          "legendFormat": "Listening Sockets",
-          "refId": "Listening"
-        },
-        {
-          "exemplar": true,
-          "expr": "system_network_connections{instance=\"$host\",state=\"ESTABLISHED\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Established Sockets",
-          "refId": "Established"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(system_network_connections{instance=\"$host\",state!~\"ESTABLISHED|LISTEN\"})",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Disconnecting Sockets",
-          "refId": "Closing"
-        },
-        {
-          "exemplar": true,
-          "expr": "system_network_connections{instance=\"$host\",state=\"CLOSED\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "Closed Sockets",
-          "refId": "A"
-        }
-      ],
-      "title": "TCP Socket Status",
-      "type": "timeseries"
-    },
-    {
       "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 24
       },
       "id": 38,
       "panels": [],
@@ -1091,7 +1079,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 33
+        "y": 25
       },
       "id": 48,
       "options": {
@@ -1113,7 +1101,7 @@
           "refId": "A"
         }
       ],
-      "title": "weighted IO time",
+      "title": "Weighted IO Time",
       "type": "timeseries"
     },
     {
@@ -1172,7 +1160,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 33
+        "y": 25
       },
       "id": 40,
       "options": {
@@ -1261,7 +1249,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 41
+        "y": 33
       },
       "id": 44,
       "options": {
@@ -1291,185 +1279,7 @@
           "refId": "B"
         }
       ],
-      "title": "disk merged",
-      "type": "timeseries"
-    },
-    {
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 25,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "normal"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 41
-      },
-      "id": 32,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "system_filesystem_inodes_usage{instance=\"$host\",state=\"used\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "system_filesystem_inodes_usage{instance=\"$host\",state=\"free\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "B"
-        }
-      ],
-      "title": "filesystem inodes",
-      "type": "timeseries"
-    },
-    {
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisLabel": "",
-            "axisPlacement": "auto",
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": false,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 0,
-        "y": 49
-      },
-      "id": 46,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom"
-        },
-        "tooltip": {
-          "mode": "single"
-        }
-      },
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "rate(system_disk_operation_time{instance=\"$host\",direction=\"read\"}[$__rate_interval])",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "-rate(system_disk_operation_time{instance=\"$host\",direction=\"read\"}[$__rate_interval])",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "B"
-        }
-      ],
-      "title": "disk operation time",
+      "title": "Disk Merged",
       "type": "timeseries"
     },
     {
@@ -1502,7 +1312,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 49
+        "y": 33
       },
       "id": 49,
       "options": {
@@ -1522,9 +1332,9 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "system_filesystem_inodes_usage{instance=\"$host\",state=\"used\"}",
+          "expr": "system_filesystem_inodes_usage{instance=\"$host\",state=\"used\"}>0",
           "interval": "",
-          "legendFormat": "{{device}} {{state}}",
+          "legendFormat": "Mount: {{mountpoint}}",
           "refId": "A"
         },
         {
@@ -1538,7 +1348,7 @@
           "refId": "total"
         }
       ],
-      "title": "filesystem inodes",
+      "title": "File System Inode Usage",
       "transformations": [
         {
           "id": "configFromData",
@@ -1611,9 +1421,9 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 57
+        "y": 41
       },
-      "id": 36,
+      "id": 46,
       "options": {
         "legend": {
           "calcs": [],
@@ -1627,13 +1437,21 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "system_disk_pending_operations{instance=\"$host\"}",
+          "expr": "rate(system_disk_operation_time{instance=\"$host\",direction=\"read\"}[$__rate_interval])",
           "interval": "",
-          "legendFormat": "{{device}}",
+          "legendFormat": "",
           "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "-rate(system_disk_operation_time{instance=\"$host\",direction=\"read\"}[$__rate_interval])",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "B"
         }
       ],
-      "title": "Disk Queue Length",
+      "title": "Disk Operation Time",
       "type": "timeseries"
     },
     {
@@ -1693,7 +1511,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 57
+        "y": 41
       },
       "id": 34,
       "options": {
@@ -1733,6 +1551,206 @@
       ],
       "title": "Harddrive useage",
       "type": "timeseries"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 49
+      },
+      "id": 36,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "system_disk_pending_operations{instance=\"$host\"}",
+          "interval": "",
+          "legendFormat": "{{device}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Disk Queue Length",
+      "type": "timeseries"
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 57
+      },
+      "id": 53,
+      "panels": [],
+      "title": "Network",
+      "type": "row"
+    },
+    {
+      "datasource": "Prometheus",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 58
+      },
+      "id": 15,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "system_network_connections{instance=\"$host\",state=\"LISTEN\"}",
+          "interval": "",
+          "legendFormat": "Listening Sockets",
+          "refId": "Listening"
+        },
+        {
+          "exemplar": true,
+          "expr": "system_network_connections{instance=\"$host\",state=\"ESTABLISHED\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Established Sockets",
+          "refId": "Established"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(system_network_connections{instance=\"$host\",state!~\"ESTABLISHED|LISTEN\"})",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Disconnecting Sockets",
+          "refId": "Closing"
+        },
+        {
+          "exemplar": true,
+          "expr": "system_network_connections{instance=\"$host\",state=\"CLOSED\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Closed Sockets",
+          "refId": "A"
+        }
+      ],
+      "title": "TCP Socket Status",
+      "type": "timeseries"
     }
   ],
   "refresh": "10s",
@@ -1745,8 +1763,8 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "192.168.2.212:9101",
-          "value": "192.168.2.212:9101"
+          "text": "192.168.2.41:9101",
+          "value": "192.168.2.41:9101"
         },
         "datasource": "Prometheus",
         "definition": "label_values(up{job=\"otel-windows\"},instance)",
@@ -1771,12 +1789,12 @@
     ]
   },
   "time": {
-    "from": "now-1h",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "otel-host_metrics",
   "uid": "tRDQ382nk",
-  "version": 36
+  "version": 40
 }

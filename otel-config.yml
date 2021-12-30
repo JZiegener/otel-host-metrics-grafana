@@ -9,16 +9,10 @@ receivers:
       load:
       memory:
       network:
-        #interfaces: ["vEthernet (WSL)", "Ethernet 4","vEthernet (Default Switch)"]
 
-      process:
-      #  include:
-      #    names: ["otelcol.exe"]
 exporters:
   prometheus:
     endpoint: "0.0.0.0:9101"
-    const_labels:
-      label1: otel-windows
   logging:
  
 processors:

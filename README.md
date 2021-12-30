@@ -1,2 +1,2 @@
 # otel-host-metrics-grafana
-Grafana dashboard and otel collector for host metrics
+Grafana dashboard for OpenTelemetry host metrics captured in Prometheus
