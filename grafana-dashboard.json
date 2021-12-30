@@ -23,7 +23,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 30,
-  "iteration": 1640906603426,
+  "iteration": 1640906723572,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -1073,32 +1073,7 @@
             ]
           }
         },
-        "overrides": [
-          {
-            "__systemRef": "hideSeriesFrom",
-            "matcher": {
-              "id": "byNames",
-              "options": {
-                "mode": "exclude",
-                "names": [
-                  "{device=\"dm-6\", host_name=\"pve\", instance=\"192.168.2.41:9101\", job=\"otel-windows\", os_type=\"LINUX\"}"
-                ],
-                "prefix": "All except:",
-                "readOnly": true
-              }
-            },
-            "properties": [
-              {
-                "id": "custom.hideFrom",
-                "value": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": true
-                }
-              }
-            ]
-          }
-        ]
+        "overrides": []
       },
       "gridPos": {
         "h": 8,
@@ -1772,11 +1747,38 @@
         "allValue": null,
         "current": {
           "selected": false,
-          "text": "192.168.2.41:9101",
-          "value": "192.168.2.41:9101"
+          "text": "otel-windows",
+          "value": "otel-windows"
         },
         "datasource": "Prometheus",
-        "definition": "label_values(up{job=\"otel-windows\"},instance)",
+        "definition": "label_values(system_cpu_time,job)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "job",
+        "options": [],
+        "query": {
+          "query": "label_values(system_cpu_time,job)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "192.168.2.212:9101",
+          "value": "192.168.2.212:9101"
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(up{job=\"$job\"},instance)",
         "description": null,
         "error": null,
         "hide": 0,
@@ -1786,7 +1788,7 @@
         "name": "host",
         "options": [],
         "query": {
-          "query": "label_values(up{job=\"otel-windows\"},instance)",
+          "query": "label_values(up{job=\"$job\"},instance)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -1805,5 +1807,5 @@
   "timezone": "",
   "title": "otel-host_metrics",
   "uid": "tRDQ382nk",
-  "version": 42
+  "version": 44
 }
