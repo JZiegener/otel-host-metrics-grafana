@@ -23,7 +23,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 30,
-  "iteration": 1640906322144,
+  "iteration": 1640906603426,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -1073,7 +1073,32 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "{device=\"dm-6\", host_name=\"pve\", instance=\"192.168.2.41:9101\", job=\"otel-windows\", os_type=\"LINUX\"}"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": true
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -1097,7 +1122,7 @@
           "exemplar": true,
           "expr": "rate(system_disk_weighted_io_time{instance=\"$host\"}[$__rate_interval])",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{device}}",
           "refId": "A"
         }
       ],
@@ -1267,7 +1292,7 @@
           "exemplar": true,
           "expr": "rate(system_disk_merged{instance=\"$host\",direction=\"read\"}[$__rate_interval])",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{device}} read",
           "refId": "A"
         },
         {
@@ -1275,7 +1300,7 @@
           "expr": "-rate(system_disk_merged{instance=\"$host\",direction=\"write\"}[$__rate_interval])",
           "hide": false,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{device}} write",
           "refId": "B"
         }
       ],
@@ -1332,7 +1357,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "system_filesystem_inodes_usage{instance=\"$host\",state=\"used\"}>0",
+          "expr": "system_filesystem_inodes_usage{instance=\"$host\",state=\"used\"}",
           "interval": "",
           "legendFormat": "Mount: {{mountpoint}}",
           "refId": "A"
@@ -1439,15 +1464,15 @@
           "exemplar": true,
           "expr": "rate(system_disk_operation_time{instance=\"$host\",direction=\"read\"}[$__rate_interval])",
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{device}} read",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "-rate(system_disk_operation_time{instance=\"$host\",direction=\"read\"}[$__rate_interval])",
+          "expr": "-rate(system_disk_operation_time{instance=\"$host\",direction=\"write\"}[$__rate_interval])",
           "hide": false,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "{{device}} write",
           "refId": "B"
         }
       ],
@@ -1531,22 +1556,6 @@
           "interval": "",
           "legendFormat": "{{device}} used",
           "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "system_filesystem_usage{instance=\"$host\",state=\"free\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "{{device}} used",
-          "refId": "B"
-        },
-        {
-          "exemplar": true,
-          "expr": "system_filesystem_usage{instance=\"$host\",state=\"reserved\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "{{device}} used",
-          "refId": "C"
         }
       ],
       "title": "Harddrive useage",
@@ -1796,5 +1805,5 @@
   "timezone": "",
   "title": "otel-host_metrics",
   "uid": "tRDQ382nk",
-  "version": 40
+  "version": 42
 }
